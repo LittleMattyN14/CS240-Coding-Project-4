@@ -25,19 +25,26 @@ BST::BST(int x)
 
 BST::~BST()
 {
-    while(!nodeList.empty())
-    {
-        Node* temp = nodeList.back();
-        nodeList.pop_back();
-        delete temp;
-        
-    }
+    removeNodes(root);
 }
 
+void BST::removeNodes(BST::Node* temp)
+{
+    if(temp->left != NULL)
+    {
+        removeNodes(temp->left);
+    }
+    if(temp->right != NULL)
+    {
+        removeNodes(temp->right);
+    }
+    delete temp;
+}
 
 bool BST::insert(int x)
 {
     Node* temp = new Node(x);
+    nodeList.push_back(temp);
     if(root == NULL)
     {
         root = temp;
@@ -82,4 +89,152 @@ bool BST::insert(int x)
     }
 }
 
+bool BST::insertVector(vector<int> &x)
+{
+    for(int i = 0; i < x.size(); i++)
+    {
+        insert(x.at(i));
+    }
+    return true;
+}
+
+bool BST::find(int x)
+{
+    Node* temp = root;
+    while(temp != NULL)
+    {
+        if(x == temp->val)
+        {
+            return true;
+        }
+        if(x > temp->val)
+        {
+            temp = temp->right;
+        }
+        else if(x < temp->val)
+        {
+            temp = temp->left;
+        }
+    }
+    return false;
+}
+
+int BST::remove(int x)
+{
+    if(!find(x))
+    {
+        return -1;
+    }
+    Node* parent = NULL;
+    Node* temp = root;
+
+    while(temp != NULL)
+    {
+        if(temp->val == x)
+        {   
+            if(temp->right == NULL && temp->left == NULL)
+            {
+                if(parent == NULL)
+                {
+                    root = NULL;
+                }
+                else if(parent->left == temp)
+                {
+                    parent->left = NULL;
+                }
+                else {
+                    parent->right = NULL;
+                }
+            }
+            else if(temp->right == NULL)
+            {
+                if(parent == NULL)
+                {
+                    root = temp->left;
+                }
+                else if(parent->left == temp)
+                {
+                    parent->left = temp->left;
+                }
+                else {
+                    parent->right = temp->left;
+                }
+            }
+            else if(temp->left == NULL)
+            {
+                if(parent == NULL)
+                {
+                    root = temp->right;
+                }
+                else if(parent->left == temp)
+                {
+                    parent->left = temp->right;
+                }
+                else {
+                    parent->right = temp->right;
+                }
+            }
+            else
+            {
+                Node* suc = temp->left;
+                while(suc->right != NULL)
+                {
+                    suc = suc->right;
+                }
+                int data = suc->val;
+                remove(data);
+                temp->val = data;
+            }
+        }
+        else if(x < temp->val)
+        {
+            parent = temp;
+            temp = temp->left;
+        }
+        else 
+        {
+            parent = temp;
+            temp = temp->right;
+        }
+    }
+    return x;
+    
+}
+
+bool BST::revmoveVector(vector<int> &x)
+{
+    for(int i = 0; i < x.size(); i++)
+    {
+        remove(x.at(i));
+    }
+    return true;
+}
+
+void BST::printStart()
+{
+    Node* temp = root;
+    if(temp->left != NULL)
+    {
+        print(temp->left);
+    }
+    cout << temp->val << " ";
+    if(temp->right != NULL)
+    {
+        print(temp->right);
+    }
+
+}
+
+void BST::print(Node* temp)
+{
+    if(temp->left != NULL)
+    {
+        print(temp->left);
+    }
+    cout << temp->val << " ";
+    if(temp->right != NULL)
+    {
+        print(temp->right);
+    }
+}
 

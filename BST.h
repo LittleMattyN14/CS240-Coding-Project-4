@@ -14,6 +14,7 @@ class BST{
      int remove(int);
      bool insertVector(vector<int> &);
      bool revmoveVector(vector<int> &);
+     void printStart();
      bool shuffle(int);
      bool shake(int, int);
      int averageDepth();
@@ -22,7 +23,6 @@ class BST{
      int getCount();
      BST &operator=(const BST &other);
 
-    private:
     class Node{
         public:
         int val;
@@ -40,5 +40,7 @@ class BST{
     };
      int count;
      Node* root;
+     void removeNodes(Node*);
+     void print(Node*);
      vector<Node*> nodeList;
 };
