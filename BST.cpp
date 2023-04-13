@@ -74,7 +74,6 @@ bool BST::insert(int x)
             }
             else
             {
-               count++;
                if(curNode->left == NULL)
                {
                 curNode->left = temp;
@@ -105,13 +104,15 @@ bool BST::find(int x)
     {
         if(x == temp->val)
         {
+            count++;
             return true;
         }
-        if(x > temp->val)
+        else if(x > temp->val)
         {
+            count++;
             temp = temp->right;
         }
-        else if(x < temp->val)
+        else
         {
             temp = temp->left;
         }
@@ -131,9 +132,11 @@ int BST::remove(int x)
     while(temp != NULL)
     {
         if(temp->val == x)
-        {   
+        {
+            count++;
             if(temp->right == NULL && temp->left == NULL)
             {
+               
                 if(parent == NULL)
                 {
                     root = NULL;
@@ -185,9 +188,11 @@ int BST::remove(int x)
                 remove(data);
                 temp->val = data;
             }
+            return x;
         }
         else if(x < temp->val)
         {
+            count++;
             parent = temp;
             temp = temp->left;
         }
@@ -238,3 +243,29 @@ void BST::print(Node* temp)
     }
 }
 
+void BST::reset()
+{
+    count = 0;
+}
+
+int BST::getCount()
+{
+    return count;
+}
+
+int BST::averageDepth()
+{
+    int total = 0;
+     
+}
+
+int BST::depth(Node* x)
+{
+    if(x == NULL)
+    {
+        return -1;
+    }
+    int leftheight = depth(x->left);
+    int rightheight = depth(x->right);
+    return 1 + max(leftheight, rightheight);
+}

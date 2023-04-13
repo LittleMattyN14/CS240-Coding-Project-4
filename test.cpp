@@ -22,7 +22,32 @@ int main()
     cout << tree.find(80) << endl;
     cout << tree.find(70) << endl;
     cout << tree.find(1000) << endl;
+
+    tree.remove(5);
+    tree.remove(30);
+    tree.remove(75);
+    tree.remove(50);
     tree.printStart();
+
+
+    BST tree2;
+    tree2.insert(10);
+    vector<int> x;
+    
+    
+    x.push_back(50);
+    x.push_back(25);
+    x.push_back(30);
+    x.push_back(70);
+    x.push_back(75);
+    x.push_back(80);
+
+    tree2.insertVector(x);
+    tree2.insert(100);
+    tree2.revmoveVector(x);
+
+    cout << endl;
+    tree2.printStart();
 
     return 0;
 }

@@ -18,8 +18,8 @@ class BST{
      bool shuffle(int);
      bool shake(int, int);
      int averageDepth();
-     int depth();
-     bool reset();
+     
+     void reset();
      int getCount();
      BST &operator=(const BST &other);
 
@@ -42,5 +42,6 @@ class BST{
      Node* root;
      void removeNodes(Node*);
      void print(Node*);
+     int depth(Node*);
      vector<Node*> nodeList;
 };
