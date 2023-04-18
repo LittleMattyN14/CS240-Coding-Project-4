@@ -6,23 +6,6 @@
 using namespace std;
 class BST{
     public:
-     BST();
-     BST(int);
-     ~BST();
-     bool insert(int);
-     bool find(int);
-     int remove(int);
-     bool insertVector(vector<int> &);
-     bool revmoveVector(vector<int> &);
-     void printStart();
-     bool shuffle(int);
-     bool shake(int, int);
-     int averageDepth();
-     
-     void reset();
-     int getCount();
-     BST &operator=(const BST &other);
-
     class Node{
         public:
         int val;
@@ -38,10 +21,26 @@ class BST{
             right = NULL;
         }
     };
+     BST();
+     BST(int);
+     ~BST();
+     bool insert(int);
+     bool find(int);
+     int remove(int);
+     bool insertVector(vector<int> &);
+     bool revmoveVector(vector<int> &);
+     void printStart();
+     bool shuffle(int);
+     bool shake(int, int);
+     int averageDepth();
+     void reset();
+     int getCount();
+     BST &operator=(const BST &other);
      int count;
      Node* root;
      void removeNodes(Node*);
      void print(Node*);
      int depth(Node*);
+     int getHeight();
      vector<Node*> nodeList;
 };

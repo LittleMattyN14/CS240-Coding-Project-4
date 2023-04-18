@@ -28,23 +28,30 @@ int main()
     tree.remove(75);
     tree.remove(50);
     tree.printStart();
+    cout << "Tree height: " << tree.getHeight() << endl;
+    cout << "Tree count: " << tree.getCount() << endl;
 
 
     BST tree2;
     tree2.insert(10);
-    vector<int> x;
+    vector<int> x1, x2;
     
     
-    x.push_back(50);
-    x.push_back(25);
-    x.push_back(30);
-    x.push_back(70);
-    x.push_back(75);
-    x.push_back(80);
+    x1.push_back(50);
+    x1.push_back(25);
+    x1.push_back(30);
+    x1.push_back(70);
+    x1.push_back(75);
+    x1.push_back(80);
 
-    tree2.insertVector(x);
+    x2.push_back(25);
+    x2.push_back(800);
+    x2.push_back(10);
+
+    tree2.insertVector(x1);
     tree2.insert(100);
-    tree2.revmoveVector(x);
+    tree2.revmoveVector(x1);
+    tree2.revmoveVector(x2);
 
     cout << endl;
     tree2.printStart();

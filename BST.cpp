@@ -1,5 +1,4 @@
-
-
+#include <cstdlib>
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
@@ -13,6 +12,7 @@ BST::BST()
 {
     count = 0;
     root = NULL;
+    srand((unsigned) time(NULL));
 }
 
 BST::BST(int x)
@@ -21,6 +21,7 @@ BST::BST(int x)
     Node *temp = new Node(x);
     root = temp;
     nodeList.push_back(temp);
+    srand((unsigned) time(NULL));
 }
 
 BST::~BST()
@@ -222,7 +223,16 @@ void BST::printStart()
     {
         print(temp->left);
     }
-    cout << temp->val << " ";
+    if(temp->right != NULL){
+        cout << "Node " << temp->val << " right child: " << temp->right->val << endl;
+    }
+    if(temp->left != NULL){
+        cout << "Node " << temp->val << " left child: " << temp->left->val << endl;
+    }
+    if(temp->left == NULL && temp->right == NULL){
+        cout << "Node " << temp->val << " is a leaf node with no children :(" << endl;
+    }
+    //cout << temp->val << " ";
     if(temp->right != NULL)
     {
         print(temp->right);
@@ -236,7 +246,16 @@ void BST::print(Node* temp)
     {
         print(temp->left);
     }
-    cout << temp->val << " ";
+    if(temp->right != NULL){
+        cout << "Node " << temp->val << " right child: " << temp->right->val << endl;
+    }
+    if(temp->left != NULL){
+        cout << "Node " << temp->val << " left child: " << temp->left->val << endl;
+    }
+    if(temp->left == NULL && temp->right == NULL){
+        cout << "Node " << temp->val << " is a leaf node with no children :(" << endl;
+    }
+    //cout << temp->val << " ";
     if(temp->right != NULL)
     {
         print(temp->right);
@@ -256,7 +275,7 @@ int BST::getCount()
 int BST::averageDepth()
 {
     int total = 0;
-     
+    return total;
 }
 
 int BST::depth(Node* x)
@@ -268,4 +287,59 @@ int BST::depth(Node* x)
     int leftheight = depth(x->left);
     int rightheight = depth(x->right);
     return 1 + max(leftheight, rightheight);
+}
+
+int BST::getHeight(){
+    return depth(root);
+}
+
+bool BST::shuffle(int swaps)
+{
+    int rand1, rand2;
+    Node* temp;
+    if(nodeList.size() == 1)
+    {
+        return false;
+    }
+    
+    for(int i = 0; i < swaps; i++)
+    {
+        rand1 = (rand() % nodeList.size() - 1);
+        rand2 = (rand() % (nodeList.size() - 1));
+        while(rand1 == rand2)
+        {
+            rand2 = (rand() % (nodeList.size() - 1));
+        }
+        temp = nodeList.at(rand1);
+        nodeList.at(rand1) = nodeList.at(rand2);
+        nodeList.at(rand2) = temp;
+    }
+    
+    return true;
+}
+bool BST::shake(int swaps, int distance)
+{
+    int randIndex, randDistance, rightOrLeft;
+    Node* temp;
+    for(int i = 0; i < swaps; i++)
+    {
+        randIndex = (rand() % nodeList.size() - 1);
+        randDistance = (rand() % distance) + 1;
+        rightOrLeft = (rand() % 2);
+            while(randIndex >= 1 && randIndex < nodeList.size() - 1){
+                if(rightOrLeft == 0){
+                    temp = nodeList.at(randIndex);
+                    nodeList.at(randIndex) = nodeList.at(randIndex - 1);
+                    nodeList.at(randIndex - 1) = temp;
+                    randIndex--;
+                }
+            else{
+                temp = nodeList.at(randIndex);
+                nodeList.at(randIndex) = nodeList.at(randIndex + 1);
+                nodeList.at(randIndex + 1) = temp;
+                randIndex++;
+            }
+        }
+    }
+    return true;
 }
