@@ -28,11 +28,11 @@ class BST{
      bool find(int);
      int remove(int);
      bool insertVector(vector<int> &);
-     bool revmoveVector(vector<int> &);
+     bool removeVector(vector<int> &);
      void printStart();
      bool shuffle(int);
      bool shake(int, int);
-     int averageDepth();
+     double averageDepth();
      void reset();
      int getCount();
      BST &operator=(const BST &other);
@@ -42,5 +42,6 @@ class BST{
      void print(Node*);
      int depth(Node*);
      int getHeight();
+     vector<int> getList();
      vector<Node*> nodeList;
 };

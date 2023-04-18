@@ -70,6 +70,7 @@ bool BST::insert(int x)
                 curNode = NULL;
                }
                else{
+                count++;
                 curNode = curNode->right;
                }
             }
@@ -77,10 +78,12 @@ bool BST::insert(int x)
             {
                if(curNode->left == NULL)
                {
+                count++;
                 curNode->left = temp;
                 curNode = NULL;
                }
                else{
+                count++;
                 curNode = curNode->left;
                }
             }
@@ -115,6 +118,7 @@ bool BST::find(int x)
         }
         else
         {
+            count++;
             temp = temp->left;
         }
     }
@@ -199,6 +203,7 @@ int BST::remove(int x)
         }
         else 
         {
+            count++;
             parent = temp;
             temp = temp->right;
         }
@@ -207,13 +212,22 @@ int BST::remove(int x)
     
 }
 
-bool BST::revmoveVector(vector<int> &x)
+bool BST::removeVector(vector<int> &x)
 {
     for(int i = 0; i < x.size(); i++)
     {
         remove(x.at(i));
     }
     return true;
+}
+
+vector<int> BST::getList(){
+    vector<int> x;
+    for(int i = 0; i < nodeList.size(); i++)
+    {
+        x.push_back(nodeList.at(i)->val);
+    }
+    return x;
 }
 
 void BST::printStart()
@@ -272,10 +286,31 @@ int BST::getCount()
     return count;
 }
 
-int BST::averageDepth()
+double BST::averageDepth()
 {
-    int total = 0;
-    return total;
+    double depthTotal, nodeTotal;
+    depthTotal = 0;
+    nodeTotal = 1;
+    Node* temp = root;
+
+     if(temp->left != NULL)
+    {
+        nodeTotal++;
+       depthTotal += depth(temp->left);
+       
+    }
+    nodeTotal++;
+    depthTotal += depth(temp);
+    
+    
+    if(temp->right != NULL)
+    {
+        nodeTotal++; 
+        depthTotal += depth(temp->right);
+    }
+
+    cout << "NodeTotal = " << nodeTotal << endl;
+    return depthTotal/nodeTotal;
 }
 
 int BST::depth(Node* x)
@@ -304,7 +339,7 @@ bool BST::shuffle(int swaps)
     
     for(int i = 0; i < swaps; i++)
     {
-        rand1 = (rand() % nodeList.size() - 1);
+        rand1 = (rand() % (nodeList.size() - 1));
         rand2 = (rand() % (nodeList.size() - 1));
         while(rand1 == rand2)
         {

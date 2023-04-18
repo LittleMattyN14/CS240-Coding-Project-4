@@ -7,30 +7,57 @@ using namespace std;
 
 int main()
 {
-    BST tree;
-    tree.insert(50);
-    tree.insert(25);
-    tree.insert(75);
-    tree.insert(30);
-    tree.insert(35);
-    tree.insert(80);
-    tree.insert(70);
-    tree.insert(10);
-    tree.insert(5);
-    tree.insert(100);
+    BST tree1;
+    tree1.insert(50);
+    tree1.insert(25);
+    tree1.insert(75);
+    tree1.insert(30);
+    tree1.insert(35);
+    tree1.insert(80);
+    tree1.insert(70);
+    tree1.insert(10);
+    tree1.insert(5);
+    tree1.insert(100);
 
-    cout << tree.find(80) << endl;
-    cout << tree.find(70) << endl;
-    cout << tree.find(1000) << endl;
+    cout << tree1.find(80) << endl;
+    cout << tree1.find(70) << endl;
+    cout << tree1.find(1000) << endl;
 
-    tree.remove(5);
-    tree.remove(30);
-    tree.remove(75);
-    tree.remove(50);
-    tree.printStart();
-    cout << "Tree height: " << tree.getHeight() << endl;
-    cout << "Tree count: " << tree.getCount() << endl;
+    
+    
 
+    /*tree1.remove(5);
+    tree1.remove(30);
+    tree1.remove(75);
+    tree1.remove(50);*/
+    cout << endl;
+    tree1.printStart();
+    cout << "Tree height: " << tree1.getHeight() << endl;
+    cout << "Tree count: " << tree1.getCount() << endl;
+    cout << "Average depth: " << tree1.averageDepth() << endl;
+    cout << endl;
+
+    tree1.shuffle(5);
+    vector<int> newTree3List, newTree4List;
+    newTree3List = tree1.getList();
+    BST tree3, tree4;
+    tree3.insertVector(newTree3List);
+    tree3.printStart();
+    cout << "Tree height: " << tree3.getHeight() << endl;
+    cout << "Tree count: " << tree3.getCount() << endl;
+    cout << "Average depth: " << tree3.averageDepth() << endl;
+
+    cout << endl;
+
+    tree3.shake(5, 10);
+    newTree4List = tree3.getList();
+    tree4.insertVector(newTree4List);
+    tree4.printStart();
+    cout << "Tree height: " << tree4.getHeight() << endl;
+    cout << "Tree count: " << tree4.getCount() << endl;
+    cout << "Average depth: " << tree4.averageDepth() << endl;
+
+    cout << endl;
 
     BST tree2;
     tree2.insert(10);
@@ -50,8 +77,8 @@ int main()
 
     tree2.insertVector(x1);
     tree2.insert(100);
-    tree2.revmoveVector(x1);
-    tree2.revmoveVector(x2);
+    tree2.removeVector(x1);
+    tree2.removeVector(x2);
 
     cout << endl;
     tree2.printStart();
