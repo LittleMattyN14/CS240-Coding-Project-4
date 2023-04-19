@@ -12,7 +12,7 @@ BST::BST()
 {
     count = 0;
     root = NULL;
-    srand((unsigned) time(NULL));
+    //srand((unsigned) time(NULL));
 }
 
 BST::BST(int x)
@@ -21,12 +21,14 @@ BST::BST(int x)
     Node *temp = new Node(x);
     root = temp;
     nodeList.push_back(temp);
-    srand((unsigned) time(NULL));
+    //srand((unsigned) time(NULL));
 }
 
 BST::~BST()
 {
-    removeNodes(root);
+    if(root != NULL){
+        removeNodes(root);
+    }
 }
 
 void BST::removeNodes(BST::Node* temp)
@@ -44,6 +46,9 @@ void BST::removeNodes(BST::Node* temp)
 
 bool BST::insert(int x)
 {
+    if(x < 0){
+        return false;
+    }
     Node* temp = new Node(x);
     nodeList.push_back(temp);
     if(root == NULL)
@@ -134,6 +139,12 @@ int BST::remove(int x)
     Node* parent = NULL;
     Node* temp = root;
 
+    for(int i = 0; i < nodeList.size(); i++){
+        if(nodeList.at(i)->val == x){
+            nodeList.erase(nodeList.begin() + i);
+        }
+    }
+
     while(temp != NULL)
     {
         if(temp->val == x)
@@ -153,6 +164,7 @@ int BST::remove(int x)
                 else {
                     parent->right = NULL;
                 }
+                delete temp;
             }
             else if(temp->right == NULL)
             {
@@ -167,6 +179,7 @@ int BST::remove(int x)
                 else {
                     parent->right = temp->left;
                 }
+                delete temp;
             }
             else if(temp->left == NULL)
             {
@@ -181,6 +194,7 @@ int BST::remove(int x)
                 else {
                     parent->right = temp->right;
                 }
+                delete temp;
             }
             else
             {
@@ -232,19 +246,23 @@ vector<int> BST::getList(){
 
 void BST::printStart()
 {
+    if(root == NULL){
+        cout << "Tree is empty" << endl;
+        return;
+    }
     Node* temp = root;
     if(temp->left != NULL)
     {
         print(temp->left);
     }
     if(temp->right != NULL){
-        cout << "Node " << temp->val << " right child: " << temp->right->val << endl;
+        cout << "Root Node " << temp->val << " right child: " << temp->right->val << endl;
     }
     if(temp->left != NULL){
-        cout << "Node " << temp->val << " left child: " << temp->left->val << endl;
+        cout << "Root Node " << temp->val << " left child: " << temp->left->val << endl;
     }
     if(temp->left == NULL && temp->right == NULL){
-        cout << "Node " << temp->val << " is a leaf node with no children :(" << endl;
+        cout << "Root Node " << temp->val << " is a leaf node with no children :(" << endl;
     }
     //cout << temp->val << " ";
     if(temp->right != NULL)
@@ -256,6 +274,10 @@ void BST::printStart()
 
 void BST::print(Node* temp)
 {
+    if(temp == NULL){
+        cout << "Tree is empty" << endl;
+        return;
+    }
     if(temp->left != NULL)
     {
         print(temp->left);
@@ -286,33 +308,6 @@ int BST::getCount()
     return count;
 }
 
-double BST::averageDepth()
-{
-    double depthTotal, nodeTotal;
-    depthTotal = 0;
-    nodeTotal = 1;
-    Node* temp = root;
-
-     if(temp->left != NULL)
-    {
-        nodeTotal++;
-       depthTotal += depth(temp->left);
-       
-    }
-    nodeTotal++;
-    depthTotal += depth(temp);
-    
-    
-    if(temp->right != NULL)
-    {
-        nodeTotal++; 
-        depthTotal += depth(temp->right);
-    }
-
-    cout << "NodeTotal = " << nodeTotal << endl;
-    return depthTotal/nodeTotal;
-}
-
 int BST::depth(Node* x)
 {
     if(x == NULL)
@@ -322,6 +317,44 @@ int BST::depth(Node* x)
     int leftheight = depth(x->left);
     int rightheight = depth(x->right);
     return 1 + max(leftheight, rightheight);
+}
+
+double BST::depthRecursive(Node* temp)
+{
+    double sum = 0;
+    if(temp->left != NULL)
+    {
+        sum += depthRecursive(temp->left);
+    }
+    sum += depth(temp);
+    if(temp->right != NULL)
+    {
+        sum += depthRecursive(temp->right);
+    }
+    return sum;
+}
+
+double BST::nodeCountRecursive(Node* temp)
+{
+    double sum = 0;
+    if(temp->left != NULL)
+    {
+        sum += nodeCountRecursive(temp->left);
+    }
+    sum ++;
+    if(temp->right != NULL)
+    {
+        sum += nodeCountRecursive(temp->right);
+    }
+    return sum;
+}
+
+double BST::averageDepth()
+{
+    double depthTotal, nodeTotal;
+    depthTotal = depthRecursive(root);
+    nodeTotal = nodeCountRecursive(root);
+    return depthTotal / nodeTotal;
 }
 
 int BST::getHeight(){

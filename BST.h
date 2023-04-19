@@ -33,6 +33,8 @@ class BST{
      bool shuffle(int);
      bool shake(int, int);
      double averageDepth();
+     double depthRecursive(Node*);
+     double nodeCountRecursive(Node*);
      void reset();
      int getCount();
      BST &operator=(const BST &other);
