@@ -23,13 +23,13 @@ int main()
     cout << "Tree 1 count inserting into tree: " << tree1.getCount() << endl;
     tree1.reset();
 
-    cout << tree1.find(80) << endl;
+    cout << "80 found: " << tree1.find(80) << endl;
     cout << "Tree 1 count find 80: " << tree1.getCount() << endl;
     tree1.reset();
-    cout << tree1.find(70) << endl;
+    cout << "70 found: " << tree1.find(70) << endl;
     cout << "Tree 1 count find 70: " << tree1.getCount() << endl;
     tree1.reset();
-    cout << tree1.find(1000) << endl;
+    cout << "1000 found: " << tree1.find(1000) << endl;
     cout << "Tree 1 count find 1000: " << tree1.getCount() << endl;
     tree1.reset();
 
