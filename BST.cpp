@@ -132,7 +132,7 @@ bool BST::find(int x)
 
 int BST::remove(int x)
 {
-    if(!find(x))
+    if(!find(x) || root == NULL)
     {
         return -1;
     }
@@ -365,7 +365,7 @@ bool BST::shuffle(int swaps)
 {
     int rand1, rand2;
     Node* temp;
-    if(nodeList.size() == 1)
+    if(nodeList.size() == 1 || root == NULL)
     {
         return false;
     }
@@ -387,6 +387,9 @@ bool BST::shuffle(int swaps)
 }
 bool BST::shake(int swaps, int distance)
 {
+    if(root == NULL){
+        return false;
+    }
     int randIndex, randDistance, rightOrLeft;
     Node* temp;
     for(int i = 0; i < swaps; i++)

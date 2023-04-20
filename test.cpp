@@ -1,3 +1,5 @@
+//Matthew Nieto and Thomas Parangelo
+
 #include <iostream>
 #include <stdlib.h>
 
@@ -174,5 +176,39 @@ int main()
     tree6.find(25);
     cout << "Tree 6 count find 25: " << tree6.getCount() << endl;
     tree6.reset();
+
+    BST tree7, tree8;
+
+    //test operations on empty tree
+    tree7.remove(2);
+    vector<int> vectorInt;
+    tree7.removeVector(vectorInt);
+    tree7.find(2);
+    tree7.getHeight();
+    tree7.shake(2, 2);
+    tree7.shuffle(2);
+
+    for(int i = 1; i <= 1000; i++){
+        tree7.insert(i);
+        tree8.insert(i);
+    }
+    tree7.reset();
+    tree8.shuffle(1000);
+    vector<int> tree8Vector;
+    tree8Vector = tree8.getList();
+    tree8.removeVector(tree8Vector);
+    tree8.insertVector(tree8Vector);
+    tree8.reset();
+    cout << "Tree 7 height: " << tree7.getHeight() << endl;
+    cout << "Tree 7 average depth: " << tree7.averageDepth() << endl;
+    cout << "Tree 8 height: " << tree8.getHeight() << endl;
+    cout << "Tree 8 average depth: " << tree8.averageDepth() << endl;
+    for(int i = 10; i <= 1000; i += 10){
+        tree7.find(i);
+        tree8.find(i);
+    }
+    cout << "Tree 7 find count: " << tree7.getCount() << endl; //count to find every node
+    cout << "Tree 8 find count: " << tree8.getCount() << endl;
+
     return 0;
 }
